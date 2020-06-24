@@ -7,5 +7,7 @@ urlpatterns = [
 
     path('formdata/', views.FormDataParamView.as_view()),
 
+    path('json/',views.JsonParamView.as_view()),
+
 ]
 

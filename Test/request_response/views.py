@@ -1,3 +1,5 @@
+import json
+
 from django import http
 from django.shortcuts import render
 
@@ -49,3 +51,17 @@ class FormDataParamView(View):
         password = request.POST.get('password')
 
         return http.HttpResponse('表单类型请求体参数：%s--%s' % (username, password))
+
+
+class JsonParamView(View):
+
+    def post(self,request):
+
+        json_str = request.body
+
+        json_dict = json.loads(json_str)
+
+        username = json_dict.get('username')
+        password = json_dict.get('password')
+
+        return http.HttpResponse('非表单类型请求体参数：%s--%s' % (username, password))
