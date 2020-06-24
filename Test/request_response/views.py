@@ -65,3 +65,27 @@ class JsonParamView(View):
         password = json_dict.get('password')
 
         return http.HttpResponse('非表单类型请求体参数：%s--%s' % (username, password))
+
+class URLparamView(View):
+
+    def get(self, request, num):
+
+        return http.HttpResponse('test: %s ' % num)
+
+
+class URLparam2View(View):
+    """测试path()中自定义路由转换器提取路径参数：手机号
+    http://127.0.0.1:8000/url_param2/18500001111/
+    """
+
+    def get(self, request, Phone_num):
+        """
+        :param phone_num: 路由提取的关键字参数
+        """
+        return http.HttpResponse('测试path()提取路径参数手机号：%s' % Phone_num)
+
+class URLparam3View(View):
+
+    def get(self,request,mobile_num):
+
+        return http.HttpResponse('测试path()提取路径参数手机号：%s' % mobile_num)

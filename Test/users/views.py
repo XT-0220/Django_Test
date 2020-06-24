@@ -32,7 +32,7 @@ class HelView(View):
 
     def get(self,request):
 
-        return http.HttpResponse('hello!!!')
+        return http.HttpResponse('hHello!!!')
 
 class HelloView(View):
 
