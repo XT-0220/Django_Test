@@ -1,10 +1,10 @@
 import json
-
+from django.views import View
 from django import http
-from django.shortcuts import render
+from django.shortcuts import render, redirect , reverse
 
 # Create your views here.
-from django.views import View
+
 
 
 class QSparamView(View):
@@ -78,14 +78,57 @@ class URLparam2View(View):
     http://127.0.0.1:8000/url_param2/18500001111/
     """
 
-    def get(self, request, Phone_num):
+    def get(self, request,Phone_num):
         """
         :param phone_num: 路由提取的关键字参数
         """
-        return http.HttpResponse('测试path()提取路径参数手机号：%s' % Phone_num)
+        return http.HttpResponse('测试path()提取路径参数手机号：%s',Phone_num)
 
 class URLparam3View(View):
 
     def get(self,request,mobile_num):
 
         return http.HttpResponse('测试path()提取路径参数手机号：%s' % mobile_num)
+
+
+class Response1View(View):
+    """测试HttpResponse
+       http://127.0.0.1:8000/response1/
+       """
+
+    def get(self, request):
+        # 使用HttpResponse构造响应数据
+        # return http.HttpResponse(content='itcast python', status=200)
+        # 可简写
+        # return http.HttpResponse('itcast python')
+
+        # 另外一种写法
+        response = http.HttpResponse('itcast python')
+        return response
+
+class JSONResponseView(View):
+    """测试JSONResponse
+    http://127.0.0.1:8000/json_resp/
+    """
+
+    def get(self, request):
+        # 准备要响应的数据
+        dict_data = {
+            'city': 'beijing',
+            'subject': 'python'
+        }
+        # 使用JSONResponse构造并响应JSON数据
+        return http.JsonResponse(dict_data)
+
+class IndexView(View):
+
+    def get(self,request):
+
+        return http.HttpResponse('首页')
+
+class  LoginRedictView(View):
+
+    def post(self,request):
+
+        # return redirect('http://127.0.0.1:8000/index/')
+        return redirect(reverse('request_response.urls','index'))

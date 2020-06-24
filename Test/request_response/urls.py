@@ -11,9 +11,17 @@ urlpatterns = [
 
     path('urlparam/<int:num>',views.URLparamView.as_view()),
 
-    path('urlparam2/<mobile:Phone_num>',views.URLparam2View.as_view()),
+    path('urlparam2/<mobile:Phone_num>/',views.URLparam2View.as_view()),
 
-    re_path(r'urlparam3/?p<mobile_num>(1[3-9]\d{9})$',views.URLparam3View.as_view())
+    re_path(r'urlparam3/?p<mobile_num>(1[3-9]\d{9})$',views.URLparam3View.as_view()),
 
+    path('response1/', views.Response1View.as_view()),
+
+    # 测试JSONResponse：http://127.0.0.1:8000/json_resp/
+    path('json_resp/', views.JSONResponseView.as_view()),
+
+    path('index/',views.IndexView.as_view()),
+
+    path('login_redirect/',views.LoginRedictView.as_view()),
 ]
 

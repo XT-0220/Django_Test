@@ -14,18 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include, register_converter
-from Test.converter import MobileConverter
+from django.urls import path, include
+
 # 调用注册路由转换器的方法,完成路由转换器的注册
 # ﻿就是将自定义的路由转换器，添加到路由转换器容器中：REGISTERED_CONVERTERS={}  (源代码有体现)
 # register_converter('自定义的路由转换器类', '别名')
+from django.urls.converters import register_converter
+from converters import MobileConverter
+
 register_converter(MobileConverter, 'mobile')
-
-
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', include('users.urls')),
 
     path('', include('request_response.urls')),
+
+    path('', include(('request_response.urls', 'request_response'), namespace='request_response')),
+
 ]
