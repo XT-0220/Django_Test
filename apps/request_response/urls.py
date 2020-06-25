@@ -13,7 +13,7 @@ urlpatterns = [
 
     path('urlparam2/<mobile:Phone_num>/',views.URLparam2View.as_view()),
 
-    re_path(r'urlparam3/?p<mobile_num>(1[3-9]\d{9})$',views.URLparam3View.as_view()),
+    re_path(r'urlparam3/(?P<mobile_num>1[3-9]\d{9})/$',views.URLparam3View.as_view()),
 
     path('response1/', views.Response1View.as_view()),
 
@@ -23,5 +23,8 @@ urlpatterns = [
     path('index/',views.IndexView.as_view()),
 
     path('login_redirect/',views.LoginRedictView.as_view()),
+
+    re_path(r'URLParam4/(?P<QQ_num>2[0-9]\d{8})/$',views.URLParamView4.as_view())
 ]
+
 

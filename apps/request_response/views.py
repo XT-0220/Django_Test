@@ -132,3 +132,10 @@ class  LoginRedictView(View):
 
         # return redirect('http://127.0.0.1:8000/index/')
         return redirect(reverse('request_response.urls','index'))
+
+
+class URLParamView4(View):
+
+    def get(self,request,QQ_num):
+
+        return http.HttpResponse('QQ: %s' % QQ_num)
