@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'request_response',
+    'booktest',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 注册自定义的中间件
+    'middlewares.TestMiddleware1',
 ]
 
 ROOT_URLCONF = 'Test.urls'
@@ -77,8 +80,12 @@ WSGI_APPLICATION = 'Test.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'localhost',  # 数据库主机
+        'PORT': 3306,  # 数据库端口
+        'USER': 'root',  # 数据库用户名
+        'PASSWORD': '970220',  # 数据库用户密码
+        'NAME': 'DjangoTest'  # 数据库名字
     }
 }
 
