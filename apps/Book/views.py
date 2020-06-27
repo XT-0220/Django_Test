@@ -1,14 +1,50 @@
-from django.db.models import F ,  Q
+from django.db.models import F, Q, Sum
 from django.shortcuts import render # 渲染模板的方法
 from django import http
 from django.views import View
-from Book.models import BookInfo
-
+from Book.models import BookInfo, HeroInfo
 
 
 class BookInfo2(View):
 
     def get(self,request):
+        ################### 一对多关联查询 #################
+        # 1.一查多：查询编号为1的图书中所有人物信息
+        # # 先查询出一方模型对象
+        # book = BookInfo.objects.get(id = 1)
+        #再使用一方模型对象调用关联的多方模型类名小写_set  (固定的语法)
+        # hero = book.heroinfo_set.all()
+        # print(hero)
+
+        # 2.多查一：查询编号为1的英雄出自的书籍
+        # 先查询出多方模型对象
+        hero = HeroInfo.objects.get(id = 1)
+        # 在使用多方模型对象调用多方模型类中的关联的外键属性名 (固定的语法)
+        book = hero.hbook
+        print(hero)
+
+
+
+        ################### 排序查询 #################
+        # 正序（默认）模型类.objects.filter('条件').order_by('模型属性')
+        # 倒序：模型类.objects.filter('条件').order_by('-模型属性')
+
+        # 查询书名不为空的图书，并且按照阅读量正序
+        # 正序：升序，有小到大
+        # book = BookInfo.objects.filter(btitle__isnull=False).order_by('bread')
+
+        # 查询书名不为空的图书，并且按照阅读量倒序
+        # 倒序：降序，有大到小
+        # book = BookInfo.objects.filter(btitle__isnull=False).order_by('-bread')
+        # print(book)
+
+        ################### 聚合查询 #################
+        # Avg 求平均值、Count 求数量、Max 求最大值、Min 求最小值、Sum 求和
+        # 1.统计图书信息总的阅读量:对本表中所有的阅读量进行求和
+        # book = BookInfo.objects.aggregate(Sum('bread'))
+        # book = {'bread__sum':146}
+        # print(book.get('bread__sum'))
+
         ################### F和Q查询 #################
         # F查询
         # 1.查询阅读量大于评论量的书籍
@@ -24,8 +60,8 @@ class BookInfo2(View):
 
         # Q查询：逻辑或，给N个条件，只有有其中任何一个是满足的，都会被找到
         # 1.查询阅读量大于20，或编号小于3的图书
-        book = BookInfo.objects.filter(Q(bread__gt=20)|Q(id__lt = 3 ))
-        print(book)
+        # book = BookInfo.objects.filter(Q(bread__gt=20)|Q(id__lt = 3 ))
+        # print(book)
 
         ################### 过滤查询 #################
         # 过滤查询的语法：模型类.objects.filter(属性__条件表达式=值)
