@@ -10,6 +10,7 @@ from django.db import models
 """
 
 class BookInfo(models.Model):
+
     btitle = models.CharField(max_length=64,verbose_name='书名')
     bpub_data = models.DateField(verbose_name='发布日期')
     bread = models.IntegerField(default=0,verbose_name='阅读量')
@@ -19,7 +20,13 @@ class BookInfo(models.Model):
     class Meta:
         db_table = 'tb_bookinfo'
 
-
+    def __str__(self):
+        """用于定义对象输出的信息的，当输出该对象时自动调用的
+        需求：我希望每次在调试BookInfo的操作结果时，都输出书名，保证让我知道当前操作的结果
+        参数：self,就是当前类属于的对象
+        :return: 描述信息
+        """
+        return self.btitle
 
 
 class HeroInfo(models.Model):
@@ -38,3 +45,5 @@ class HeroInfo(models.Model):
     class Meta:
         db_table = 'tb_heroinfo'
 
+    def __str__(self):
+        return self.hname
