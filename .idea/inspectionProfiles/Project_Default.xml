@@ -5,6 +5,7 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="Book.models.BookInfo.objects" />
+          <option value="Book.models.BookInfo.o" />
         </list>
       </option>
     </inspection_tool>

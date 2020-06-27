@@ -1,3 +1,4 @@
+from django.db.models import F ,  Q
 from django.shortcuts import render # 渲染模板的方法
 from django import http
 from django.views import View
@@ -9,8 +10,22 @@ class BookInfo2(View):
 
     def get(self,request):
         ################### F和Q查询 #################
+        # F查询
+        # 1.查询阅读量大于评论量的书籍
+        # BookInfo.objects.filter(bread__gt=11)
+        # book = BookInfo.objects.filter(bread__gt = F('bcomment'))
+        # print(book)
 
+        # Q查询：逻辑或、逻辑非
+        # 先演示逻辑与：查询阅读量大于10，并且发布时间在1980年1月1号之后
+        # book = BookInfo.objects.filter(bread__gt=10, bpub_date__gt='1980-1-1')
+        # book = BookInfo.objects.filter(bread__gt=10, bpub_data__gt='1990-1-1')
+        # print(book)
 
+        # Q查询：逻辑或，给N个条件，只有有其中任何一个是满足的，都会被找到
+        # 1.查询阅读量大于20，或编号小于3的图书
+        book = BookInfo.objects.filter(Q(bread__gt=20)|Q(id__lt = 3 ))
+        print(book)
 
         ################### 过滤查询 #################
         # 过滤查询的语法：模型类.objects.filter(属性__条件表达式=值)
@@ -37,8 +52,8 @@ class BookInfo2(View):
         # 5.查询编号为1或3或5的书籍 (范围查询)，特别容易误解
         # book = BookInfo.objects.filter(btitle__in = [1,3,5])
         # 查询编号为1或5的书籍 (范围查询)
-        book = BookInfo.objects.filter(btitle__in=[1,5])
-        print(book)
+        # book = BookInfo.objects.filter(btitle__in=[1,5])
+        # print(book)
 
         # 6.查询编号大于3的书籍 (比较查询)
         # gt 大于 (greater than)
@@ -61,10 +76,6 @@ class BookInfo2(View):
         # from datetime import date
         # books = BookInfo.objects.filter(bpub_date__gt=date(1990,1,1))
         # print(books)
-
-
-
-
 
         ################### 基本查询 #################
         # 1. 查询指定记录：只查询第一条记录
@@ -94,9 +105,6 @@ class BookInfo1(View):
         book = BookInfo.objects.get(id = 5)
         book.is_delete = True
         book.save()
-
-
-
 
         ################### delete()方法物理删除记录 #################
         # 语法：模型类.objects.filter('条件').delete()
