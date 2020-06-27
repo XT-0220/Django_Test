@@ -141,3 +141,20 @@ class BookInfo1(View):
         # book.save()
 
         return http.HttpResponse('测试1')
+
+# 测试模板的定义和响应
+class TemView(View):
+
+    def get(self,request):
+        # 假装在处理逻辑......
+
+        # 构造上下文字典：将上下文字典中的数据渲染到HTML模板文件
+        context = {
+            # 'key': 'value'
+            'subject': 'Python学科',
+            'hot': '真的牛逼'
+        }
+
+        # 响应结果：模板（html文件）
+        # render()使用上下文字典渲染模板
+        return render(request,'temp.html',context)
