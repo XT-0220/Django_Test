@@ -29,6 +29,8 @@ urlpatterns = [
 
     path('', include('request_response.urls')),
 
+
     path('', include(('request_response.urls', 'request_response'), namespace='request_response')),
 
+    path('', include('Book.urls')),
 ]
