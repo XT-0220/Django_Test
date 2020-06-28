@@ -11,6 +11,8 @@ urlpatterns = [
     path('tem/',views.TemView.as_view()),
 
     path('tem1/',views.TemView2.as_view()),
+
+    path('test/',views.TestCookieView.as_view()),
 ]
 
 

@@ -202,19 +202,6 @@ class TemView(View):
 
 
 class TemView2(View):
-
-    # def get(self,request):
-    #
-    #     books = BookInfo.objects.all()
-    #
-    #     context = {
-    #
-    #         'books': books
-    #     }
-    #
-    #     return render(request , 'books.html', books)
-
-
         def get(self, request):
             # 查询所有图书信息
             books = BookInfo.objects.all()
@@ -241,3 +228,41 @@ class TemView2(View):
             # 使用上下文字典渲染模板，并响应
             return response
 
+
+class TestCookieView(View):
+
+    def get(self, request):
+        # 读取cookie
+        username = request.COOKIES.get('username')
+        print(username)
+
+        # 使用cookie去辨别用户身份：Django框架中已经对此逻辑进行的封装，不需要我们做
+        # 以下为伪代码：
+        # user = 用户模型类.objects.get(username=username)
+        # if user:
+        # 用户是已登录的用户
+        # else
+        # 用户是未登录的用户
+
+        return http.HttpResponse('测试Cookie')
+
+class TestSessionView(View):
+    """测试Session
+    GET http://127.0.0.1:8000/session/
+    """
+
+    def get(self, request):
+        # 读取session_data
+        # request.session.get('key')
+        username = request.session.get('username')
+        print(username)
+
+        # 使用session_data辨别用户身份:真实代码封装在AuthenticationMiddleware
+        # 以下为伪代码：代码逻辑是类似的，只是Django存的是user_id
+        # user = 用户模型类.objects.get(username=username)
+        # if user:
+        # 用户是已登录的用户
+        # else
+        # 用户是未登录的用户
+
+        return http.HttpResponse('测试Session')
