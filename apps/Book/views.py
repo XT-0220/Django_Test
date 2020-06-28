@@ -224,4 +224,20 @@ class TemView2(View):
                 'books': books
             }
             # 使用上下文渲染'book.html'，并返回给客户端
-            return render(request, 'books.html', context)
+            # return render(request, 'books.html', context)
+
+            # 设置cookie:使用响应对象设置
+            # 先创建出响应对象
+            response = render(request, 'books.html', context)
+
+            # 响应对象调用set_cookie()
+            # response.set_cookie('username', '张小厨', max_age=3600) # 如果值为中文编码时会出错
+            response.set_cookie('username', 'zxc', max_age=3600)
+
+            # 设置session:假装登录后使用session记住用户登录状态
+            # request.session['key'] = 'value'
+            request.session['username'] = 'zxc'
+
+            # 使用上下文字典渲染模板，并响应
+            return response
+
