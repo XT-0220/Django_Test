@@ -18,10 +18,10 @@ class BookInfo2(View):
 
         # 2.多查一：查询编号为1的英雄出自的书籍
         # 先查询出多方模型对象
-        hero = HeroInfo.objects.get(id=1)
+        # hero = HeroInfo.objects.get(id=1)
         # 在使用多方模型对象调用多方模型类中的关联的外键属性名 (固定的语法)
-        book = hero.hbook
-        print(hero)
+        # book = hero.hbook
+        # print(hero)
 
         ################### 排序查询 #################
         # 正序（默认）模型类.objects.filter('条件').order_by('模型属性')
@@ -135,9 +135,9 @@ class BookInfo1(View):
 
     def get(self,request):
         ################### is_delete逻辑删除记录 #################
-        book = BookInfo.objects.get(id = 5)
-        book.is_delete = True
-        book.save()
+        # book = BookInfo.objects.get(id = 5)
+        # book.is_delete = True
+        # book.save()
 
         ################### delete()方法物理删除记录 #################
         # 语法：模型类.objects.filter('条件').delete()
@@ -199,3 +199,29 @@ class TemView(View):
         # 响应结果：模板（html文件）
         # render()使用上下文字典渲染模板
         return render(request,'temp.html',context)
+
+
+class TemView2(View):
+
+    # def get(self,request):
+    #
+    #     books = BookInfo.objects.all()
+    #
+    #     context = {
+    #
+    #         'books': books
+    #     }
+    #
+    #     return render(request , 'books.html', books)
+
+
+        def get(self, request):
+            # 查询所有图书信息
+            books = BookInfo.objects.all()
+
+            # 构造上下文
+            context = {
+                'books': books
+            }
+            # 使用上下文渲染'book.html'，并返回给客户端
+            return render(request, 'books.html', context)

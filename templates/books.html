@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>图书信息页</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	ul{
+		width:300px;
+		height:auto;
+		margin:20px auto;
+		padding:0 20px;
+		border-radius:4px;
+		background-color:#90c3ee;
+	}
+    li{
+    	list-style: none;
+    	line-height:60px;
+    	border-bottom:1px dashed #e4e4e4;
+    	text-align:center;
+    	color:#fff;
+    }
+</style>
+</head>
+
+<body>
+
+<ul>
+    {% for book in books %}
+
+        <li> 《 {{ book.btitle }} 》</li>
+
+    {% endfor %}
+
+</ul>
+
+</body>
+</html>

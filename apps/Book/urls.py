@@ -9,6 +9,8 @@ urlpatterns = [
     path('test2/',views.BookInfo2.as_view()),
 
     path('tem/',views.TemView.as_view()),
+
+    path('tem1/',views.TemView2.as_view()),
 ]
 
 
