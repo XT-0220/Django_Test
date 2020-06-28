@@ -13,6 +13,8 @@ urlpatterns = [
     path('tem1/',views.TemView2.as_view()),
 
     path('test/',views.TestCookieView.as_view()),
+
+    path('Test/',views.TestSessionView.as_view()),
 ]
 
 
